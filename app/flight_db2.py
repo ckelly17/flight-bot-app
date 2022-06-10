@@ -24,7 +24,7 @@ Pull data on military flights in NW hemisphere and add their location to databas
 
 def flight_loc_db(init=False):
 
-    raw_db_url = 'postgres://wzypmlovttdnzl:bb530351daefbc1560ae45f0d052533e2dfc1b4f430c5aa6a71ee2d7f94049aa@ec2-54-164-40-66.compute-1.amazonaws.com:5432/d7g9sn5bbegjbs'
+    raw_db_url = os.getenv("DATABASE_URL")
     final_db_url = "postgresql+psycopg2://" + raw_db_url.lstrip("postgres://")
     engine = create_engine(final_db_url)
 
