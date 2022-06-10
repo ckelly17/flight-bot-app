@@ -42,7 +42,7 @@ all_tweets, interest_tweets, arrival_tweets = load_my_tweets(api)
 # Initiate connection to database
 #####################################
 
-raw_db_url = 'postgres://wzypmlovttdnzl:bb530351daefbc1560ae45f0d052533e2dfc1b4f430c5aa6a71ee2d7f94049aa@ec2-54-164-40-66.compute-1.amazonaws.com:5432/d7g9sn5bbegjbs'
+raw_db_url = os.getenv("DATABASE_URL")
 final_db_url = "postgresql+psycopg2://" + raw_db_url.lstrip("postgres://")
 engine = create_engine(final_db_url)
 
@@ -93,12 +93,12 @@ elif update_dt < now:
 
     ###### load data from airlabs
     try:
-        apikey = '2e6da084-608a-444e-9bb2-fdff525ff8c9' # main api (ckelly52)
+        apikey = os.getenv("AIRLABS_API_KEY") # main api (ckelly52)
         url_data = f'https://airlabs.co/api/v9/flights?api_key={apikey}'
         response = requests.get(url_data).json()
         airlabs_all_flights = pd.DataFrame(response['response'])
     except:
-        apikey = '274a066d-69d3-4990-b4f7-c563e3f2f1f5' # deloitte api
+        apikey = os.getenv("AIRLABS_API_KEY") # deloitte api
         url_data = f'https://airlabs.co/api/v9/flights?api_key={apikey}'
         response = requests.get(url_data).json()
         airlabs_all_flights = pd.DataFrame(response['response'])
